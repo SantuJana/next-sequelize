@@ -31,7 +31,7 @@ Role.init(
     }
 )
 
-User.hasOne(Role, {foreignKey: "userId"});
-Role.belongsTo(User, {foreignKey: "userId"});
+User.hasOne(Role, {foreignKey: "userId", as: "Role",});
+Role.belongsTo(User, {foreignKey: "userId", as: "Role",});
 
 export default Role;

@@ -1,26 +1,18 @@
-import Role from "@/models/Role";
-import User from "@/models/User";
-import Image from "next/image";
+'use client'
+import { useEffect, useState } from "react";
 
-export const dynamic = "force-dynamic";
 
-const getUsers = async () => {
-  return await User.findAll({
-    include: [
-      {
-        model: Role,
-        attributes: {
-          exclude: ["id"]
-        }
-      }
-    ]
-  });
-}
+export default function Home() {
+  const [users, setUsers] = useState<any>([]);
+  const getUsers = async () => {
+    const response = await fetch('/api/user');
+    const data = await response.json();
+    setUsers(data);
+  }
 
-export default async function Home() {
-  const users = await getUsers();
-  console.log(users)
-
+  useEffect(() => {
+    getUsers();
+  }, [])
   return (
     <>
       <h3>Users: </h3>
